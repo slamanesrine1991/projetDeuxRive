@@ -1,13 +1,13 @@
-import React, { Component, Fragment } from 'react';
-import med from '../img/sidi-bou.jpg';
-import trigger from '../img/trigger.png';
-import stategy from '../img/strategy.png';
-import conversation from '../img/conversation.png';
-import calender from '../img/calender.png';
-import 'antd/dist/antd.css';
-import './home.css';
-import NavBar from './NavBar';
-import { Row, Col } from 'antd';
+import React, { Component, Fragment } from "react";
+import med from "../img/sidi-bou.jpg";
+import trigger from "../img/trigger.png";
+import stategy from "../img/strategy.png";
+import conversation from "../img/conversation.png";
+import calender from "../img/calender.png";
+import "antd/dist/antd.css";
+import "./home.css";
+import NavBar from "./NavBar";
+import { Row, Col } from "antd";
 export default class Home extends Component {
   render() {
     return (
@@ -15,7 +15,7 @@ export default class Home extends Component {
         <NavBar />
         <main className="home-page">
           <section className="home-cover">
-            <img src={med} alt="med" />
+            <img src={med} alt="med" style={{ width: "100%" }} />
             <h1>
               <span className="sommet">Forum </span> <br />
               <span className="rive">de la méditérranée</span>

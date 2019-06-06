@@ -1,8 +1,8 @@
-import React from 'react';
-import 'antd/dist/antd.css';
-import AddProfil from './add-profil';
-import { Avatar } from 'antd';
-import profilePicture from './img/profileImage_nonGender-220.png';
+import React from "react";
+import "antd/dist/antd.css";
+import AddProfil from "./add-profil";
+import { Avatar } from "antd";
+import profilePicture from "./img/profileImage_nonGender-220.png";
 
 import {
   Table,
@@ -12,44 +12,45 @@ import {
   InputNumber,
   Popconfirm,
   Form
-} from 'antd';
-import Highlighter from 'react-highlight-words';
+} from "antd";
+import Highlighter from "react-highlight-words";
 import {
   getPersons,
   updatePerson,
   deletePersons
-} from '../actions/centActions';
-import { connect } from 'react-redux';
+} from "../actions/centActions";
+import { connect } from "react-redux";
 
 const countryList = [
-  'Espagne',
-  'France',
-  'Italie',
-  'Malte',
-  'Portugal',
-  'Algérie',
-  'Libye',
-  'Mauritanie',
-  'Tunisie',
-  'Maroc'
+  "Espagne",
+  "France",
+  "Italie",
+  "Malte",
+  "Portugal",
+  "Algérie",
+  "Libye",
+  "Mauritanie",
+  "Tunisie",
+  "Maroc"
 ];
 const EditableContext = React.createContext();
 
 /*** ediitable input component */
 class EditableCell extends React.Component {
   getInput = () => {
-    if (this.props.inputType === 'number') {
+    if (this.props.inputType === "number") {
       return <InputNumber />;
-    } else if (this.props.inputType === 'select') {
+    } else if (this.props.inputType === "select") {
       return (
         <select className="select-tag">
+          <option />
           <option value="true">true</option>
           <option value="false">false</option>
         </select>
       );
-    } else if (this.props.inputType === 'textarea') {
+    } else if (this.props.inputType === "textarea") {
       return <Input.TextArea rows={6} cols={10} />;
-    } else if (this.props.inputType === 'selectCountry') {
+    } else if (this.props.inputType === "selectCountry") {
       return (
         <select className="select-tag">
           {countryList.map(el => (
@@ -57,13 +58,13 @@ class EditableCell extends React.Component {
           ))}
         </select>
       );
-    } else if (this.props.inputType === 'upload') {
+    } else if (this.props.inputType === "upload") {
       return (
         <input
           type="file"
           className="custom-file-input"
           onChange={e => {
-            console.log(e.target.files[0], 'fff');
+            console.log(e.target.files[0], "fff");
             const formData = new FormData();
             this.setState(
               {
@@ -127,7 +128,7 @@ class App extends React.Component {
   state = {
     selectedRowKeys: [], // Check here to configure the default column
     loading: false,
-    editingKey: ''
+    editingKey: ""
   };
   fileState = val => {
     this.setState({
@@ -140,11 +141,11 @@ class App extends React.Component {
   /** upload method */
 
   handleUpload = e => {
-    console.log('netbadel');
+    console.log("netbadel");
     const { fileList } = this.state;
     const formData = new FormData();
 
-    formData.append('photo', e.target.files[0]);
+    formData.append("photo", e.target.files[0]);
     // const formData = { photo: this.state.file };
 
     this.setState({
@@ -165,7 +166,7 @@ class App extends React.Component {
   };
 
   onSelectChange = selectedRowKeys => {
-    console.log('selectedRowKeys changed: ', selectedRowKeys);
+    console.log("selectedRowKeys changed: ", selectedRowKeys);
     this.setState({ selectedRowKeys });
   };
   /** search feature */
@@ -187,7 +188,7 @@ class App extends React.Component {
             setSelectedKeys(e.target.value ? [e.target.value] : [])
           }
           onPressEnter={() => this.handleSearch(selectedKeys, confirm)}
-          style={{ width: 188, marginBottom: 8, display: 'block' }}
+          style={{ width: 188, marginBottom: 8, display: "block" }}
         />
         <Button
           type="primary"
@@ -208,7 +209,7 @@ class App extends React.Component {
       </div>
     ),
     filterIcon: filtered => (
-      <Icon type="search" style={{ color: filtered ? '#1890ff' : undefined }} />
+      <Icon type="search" style={{ color: filtered ? "#1890ff" : undefined }} />
     ),
     onFilter: (value, record) =>
       record[dataIndex]
@@ -222,7 +223,7 @@ class App extends React.Component {
     },
     render: text => (
       <Highlighter
-        highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
+        highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
         searchWords={[this.state.searchText]}
         autoEscape
         textToHighlight={text.toString()}
@@ -237,30 +238,30 @@ class App extends React.Component {
 
   handleReset = clearFilters => {
     clearFilters();
-    this.setState({ searchText: '' });
+    this.setState({ searchText: "" });
   };
   /** end search feature */
   isEditing = record => record.key === this.state.editingKey;
   cancel = () => {
-    this.setState({ editingKey: '' });
+    this.setState({ editingKey: "" });
   };
 
   save(form, key) {
-    console.log(form.getFieldsValue(), 'sa');
+    console.log(form.getFieldsValue(), "sa");
     const formData = new FormData();
 
-    formData.append('photo', this.state.files);
-    console.log(formData, 'function2');
-    formData.set('country', form.getFieldsValue().country);
-    formData.set('name', form.getFieldsValue().name);
-    formData.set('bio', form.getFieldsValue().bio);
-    formData.set('chief', form.getFieldsValue().chief);
-    console.log(formData, 'formData');
-    console.log(key, 'save');
+    formData.append("photo", this.state.files);
+    console.log(formData, "function2");
+    formData.set("country", form.getFieldsValue().country);
+    formData.set("name", form.getFieldsValue().name);
+    formData.set("bio", form.getFieldsValue().bio);
+    formData.set("chief", form.getFieldsValue().chief);
+    console.log(formData, "formData");
+    console.log(key, "save");
     this.props.updatePerson(key, formData);
 
     /**requet  post axios here*/
-    this.setState({ editingKey: '' });
+    this.setState({ editingKey: "" });
   }
 
   edit(key) {
@@ -275,48 +276,48 @@ class App extends React.Component {
 
     const columns = [
       {
-        title: 'Photo',
-        dataIndex: 'photo',
-        key: 'photo',
-        className: 'photo'
+        title: "Photo",
+        dataIndex: "photo",
+        key: "photo",
+        className: "photo"
       },
       {
-        title: 'Nom et Prénom',
-        dataIndex: 'name',
-        key: 'name',
-        ...this.getColumnSearchProps('name'),
+        title: "Nom et Prénom",
+        dataIndex: "name",
+        key: "name",
+        ...this.getColumnSearchProps("name"),
         editable: true
       },
 
       {
-        title: 'Pays',
-        dataIndex: 'country',
-        key: 'country',
-        ...this.getColumnSearchProps('country'),
+        title: "Pays",
+        dataIndex: "country",
+        key: "country",
+        ...this.getColumnSearchProps("country"),
         editable: true
       },
       {
-        title: 'Chef',
-        dataIndex: 'chief',
-        key: 'chief',
-        ...this.getColumnSearchProps('chief'),
+        title: "Chef",
+        dataIndex: "chief",
+        key: "chief",
+        ...this.getColumnSearchProps("chief"),
         editable: true
       },
 
       {
-        title: 'Biographie',
-        dataIndex: 'bio',
-        key: 'bio',
-        className: 'widh-textarea',
-        ...this.getColumnSearchProps('bio'),
+        title: "Biographie",
+        dataIndex: "bio",
+        key: "bio",
+        className: "widh-textarea",
+        ...this.getColumnSearchProps("bio"),
         editable: true,
         hideOn: false
         // className: "test",
       },
       {
-        title: 'Ajouter une photo',
-        dataIndex: 'addPhoto',
-        key: 'addPhoto',
+        title: "Ajouter une photo",
+        dataIndex: "addPhoto",
+        key: "addPhoto",
 
         editable: true,
         hideOn: false
@@ -324,8 +325,8 @@ class App extends React.Component {
       },
 
       {
-        title: 'Opération',
-        dataIndex: 'operation',
+        title: "Opération",
+        dataIndex: "operation",
         render: (text, record) => {
           const { editingKey } = this.state;
           const editable = this.isEditing(record);
@@ -352,7 +353,7 @@ class App extends React.Component {
             </span>
           ) : (
             <a
-              disabled={editingKey !== ''}
+              disabled={editingKey !== ""}
               onClick={() => this.edit(record.key)}
             >
               Modifier
@@ -372,17 +373,17 @@ class App extends React.Component {
           record,
           fileState: this.fileState,
           inputType:
-            col.dataIndex === 'age'
-              ? 'number'
-              : col.dataIndex === 'chief'
-              ? 'select'
-              : col.dataIndex === 'addPhoto'
-              ? 'upload'
-              : col.dataIndex === 'bio'
-              ? 'textarea'
-              : col.dataIndex === 'country'
-              ? 'selectCountry'
-              : 'text',
+            col.dataIndex === "age"
+              ? "number"
+              : col.dataIndex === "chief"
+              ? "select"
+              : col.dataIndex === "addPhoto"
+              ? "upload"
+              : col.dataIndex === "bio"
+              ? "textarea"
+              : col.dataIndex === "country"
+              ? "selectCountry"
+              : "text",
           dataIndex: col.dataIndex,
           title: col.title,
           editing: this.isEditing(record)
@@ -406,13 +407,13 @@ class App extends React.Component {
             className="ava"
           />
         ),
-        name: this.props.centList[i].name ? this.props.centList[i].name : ' ',
+        name: this.props.centList[i].name ? this.props.centList[i].name : " ",
 
         country: this.props.centList[i].country
           ? this.props.centList[i].country
-          : ' ',
+          : " ",
         chief: this.props.centList[i].chief,
-        bio: this.props.centList[i].bio ? this.props.centList[i].bio : ' '
+        bio: this.props.centList[i].bio ? this.props.centList[i].bio : " "
       });
     }
     const { loading, selectedRowKeys } = this.state;
@@ -421,7 +422,7 @@ class App extends React.Component {
       onChange: this.onSelectChange
     };
     const hasSelected = selectedRowKeys.length > 0;
-    console.log(rowSelection.selectedRowKeys, 'walid');
+    console.log(rowSelection.selectedRowKeys, "walid");
 
     return (
       <div>
@@ -432,7 +433,7 @@ class App extends React.Component {
           <span style={{ marginLeft: 8 }}>
             {hasSelected ? (
               <span className="delte-selected-projects">
-                {' '}
+                {" "}
                 <span>{`${selectedRowKeys.length} selectionner `}</span>
                 <Icon
                   type="delete"
@@ -446,7 +447,7 @@ class App extends React.Component {
                 />
               </span>
             ) : (
-              ''
+              ""
             )}
           </span>
           <div>

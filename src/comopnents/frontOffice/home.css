@@ -125,9 +125,9 @@
   }
 }
 @media all and (min-width: 1024px) {
-  .home-cover {
+  /* .home-cover {
     padding-top: 10%;
-  }
+  } */
   .home-page h1 {
     font-size: 60px;
   }

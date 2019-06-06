@@ -1,6 +1,6 @@
-import React from 'react';
-import 'antd/dist/antd.css';
-import AddProject from './add-project';
+import React from "react";
+import "antd/dist/antd.css";
+import AddProject from "./add-project";
 import {
   Table,
   Button,
@@ -9,46 +9,66 @@ import {
   InputNumber,
   Popconfirm,
   Form
-} from 'antd';
-import Highlighter from 'react-highlight-words';
+} from "antd";
+import Highlighter from "react-highlight-words";
 import {
   getProjects,
   deleteProjects,
   updateProject
-} from '../actions/projectsAction';
-import { connect } from 'react-redux';
+} from "../actions/projectsAction";
+import { connect } from "react-redux";
 const EditableContext = React.createContext();
 const thematics = [
-  'Culture',
-  'Tourisme',
-  'Media',
-  'Environnement et développement durable',
-  'Economie et compétitivité',
-  'Jeunesse, éducation et mobilité'
+  "Culture",
+  "Tourisme",
+  "Media",
+  "Environnement et développement durable",
+  "Economie et compétitivité",
+  "Jeunesse, éducation et mobilité"
+];
+const countryList = [
+  "Espagne",
+  "France",
+  "Italie",
+  "Malte",
+  "Portugal",
+  "Algérie",
+  "Libye",
+  "Mauritanie",
+  "Tunisie",
+  "Maroc"
 ];
 /*** ediitable input component */
 class EditableCell extends React.Component {
   getInput = () => {
-    if (this.props.inputType === 'number') {
+    if (this.props.inputType === "number") {
       return <InputNumber />;
-    } else if (this.props.inputType === 'select') {
+    } else if (this.props.inputType === "select") {
       return (
         <select className="select-tag" onChange={this.props.stateValidEmail}>
           <option setFieldsValue="true">true</option>
           <option setFieldsValue="false">false</option>
         </select>
       );
-    } else if (this.props.inputType === 'textarea') {
+    } else if (this.props.inputType === "textarea") {
       return <Input.TextArea rows={6} cols={10} />;
-    } else if (this.props.inputType === 'thematic') {
+    } else if (this.props.inputType === "thematic") {
       return (
-        <select className="select-tag" style={{ width: '100% !important' }}>
+        <select className="select-tag" style={{ width: "100% !important" }}>
           {thematics.map(el => (
             <option setFieldsValue={el}>{el}</option>
           ))}
         </select>
       );
-    } else if (this.props.inputType === 'upload') {
+    } else if (this.props.inputType === "country") {
+      return (
+        <select className="select-tag" style={{ width: "100% !important" }}>
+          {countryList.map(el => (
+            <option setFieldsValue={el}>{el}</option>
+          ))}
+        </select>
+      );
+    } else if (this.props.inputType === "upload") {
       return (
         <input
           type="file"
@@ -80,7 +100,7 @@ class EditableCell extends React.Component {
       children,
       ...restProps
     } = this.props;
-    console.log(this.props, 'this.props');
+    console.log(this.props, "this.props");
     return (
       <td {...restProps}>
         {editing ? (
@@ -115,8 +135,8 @@ class App extends React.Component {
   state = {
     selectedRowKeys: [], // Check here to configure the default column
     loading: false,
-    editingKey: '',
-    stateValidEmail: ''
+    editingKey: "",
+    stateValidEmail: ""
   };
   componentWillMount = () => {
     this.props.getProjects();
@@ -143,7 +163,7 @@ class App extends React.Component {
   };
 
   onSelectChange = selectedRowKeys => {
-    console.log('selectedRowKeys changed: ', selectedRowKeys);
+    console.log("selectedRowKeys changed: ", selectedRowKeys);
     this.setState({ selectedRowKeys });
   };
   /** search feature */
@@ -165,7 +185,7 @@ class App extends React.Component {
             setSelectedKeys(e.target.value ? [e.target.value] : [])
           }
           onPressEnter={() => this.handleSearch(selectedKeys, confirm)}
-          style={{ width: 188, marginBottom: 8, display: 'block' }}
+          style={{ width: 188, marginBottom: 8, display: "block" }}
         />
         <Button
           type="primary"
@@ -186,7 +206,7 @@ class App extends React.Component {
       </div>
     ),
     filterIcon: filtered => (
-      <Icon type="search" style={{ color: filtered ? '#1890ff' : undefined }} />
+      <Icon type="search" style={{ color: filtered ? "#1890ff" : undefined }} />
     ),
     onFilter: (value, record) =>
       record[dataIndex]
@@ -200,7 +220,7 @@ class App extends React.Component {
     },
     render: text => (
       <Highlighter
-        highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
+        highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
         searchWords={[this.state.searchText]}
         autoEscape
         textToHighlight={text.toString()}
@@ -215,43 +235,43 @@ class App extends React.Component {
 
   handleReset = clearFilters => {
     clearFilters();
-    this.setState({ searchText: '' });
+    this.setState({ searchText: "" });
   };
   /** end search feature */
   isEditing = record => record.key === this.state.editingKey;
   cancel = () => {
-    this.setState({ editingKey: '' });
+    this.setState({ editingKey: "" });
   };
 
   save(form, key) {
-    console.log('tttttttttttt');
-    console.log(form.getFieldsValue(), 'form');
+    console.log("tttttttttttt");
+    console.log(form.getFieldsValue(), "form");
     const formData = new FormData();
-    let document = this.state.files ? this.state.files : '';
-    console.log(this.state.stateValidEmail, 'this.state.stateValidEmail');
-    formData.append('document', document);
-    formData.set('organizer', form.getFieldsValue().organizer);
-    formData.set('title', form.getFieldsValue().title);
-    formData.set('email', form.getFieldsValue().email);
-    formData.set('country', form.getFieldsValue().country);
-    formData.set('thematic', form.getFieldsValue().thematic);
-    console.log(this.state.stateValidEmail, 'stateValidEmail');
+    let document = this.state.files ? this.state.files : "";
+    console.log(this.state.stateValidEmail, "this.state.stateValidEmail");
+    formData.append("document", document);
+    formData.set("organizer", form.getFieldsValue().organizer);
+    formData.set("title", form.getFieldsValue().title);
+    formData.set("email", form.getFieldsValue().email);
+    formData.set("country", form.getFieldsValue().country);
+    formData.set("thematic", form.getFieldsValue().thematic);
+    console.log(this.state.stateValidEmail, "stateValidEmail");
 
     // formData.set("validEmail", this.state.stateValidEmail);
-    formData.set('validEmail', form.getFieldsValue().validEmail);
-    formData.set('description', form.getFieldsValue().description);
-    console.log(formData, 'formData');
+    formData.set("validEmail", form.getFieldsValue().validEmail);
+    formData.set("description", form.getFieldsValue().description);
+    console.log(formData, "formData");
     this.props.updateProject(key, formData);
     this.setState({
-      stateValidEmail: ''
+      stateValidEmail: ""
     });
     // console.log(form, "form");
     /**requet  post axios here*/
-    this.setState({ editingKey: '' });
+    this.setState({ editingKey: "" });
   }
 
   edit(key) {
-    console.log(key, 'key');
+    console.log(key, "key");
     this.setState({ editingKey: key });
   }
   render() {
@@ -263,68 +283,68 @@ class App extends React.Component {
 
     const columns = [
       {
-        title: 'Titre du projet',
-        dataIndex: 'title',
-        key: 'title',
-        ...this.getColumnSearchProps('title'),
+        title: "Titre du projet",
+        dataIndex: "title",
+        key: "title",
+        ...this.getColumnSearchProps("title"),
         editable: true,
-        className: 'width-10'
+        className: "width-10"
       },
       {
-        title: 'Organisation',
-        dataIndex: 'organizer',
-        key: 'organizer',
-        ...this.getColumnSearchProps('organizer'),
+        title: "Organisation",
+        dataIndex: "organizer",
+        key: "organizer",
+        ...this.getColumnSearchProps("organizer"),
         editable: true,
-        className: 'width-10'
+        className: "width-10"
       },
       {
-        title: 'Adresse eamil',
-        dataIndex: 'email',
-        key: 'eamil',
-        ...this.getColumnSearchProps('email'),
+        title: "Adresse eamil",
+        dataIndex: "email",
+        key: "eamil",
+        ...this.getColumnSearchProps("email"),
         editable: true,
-        className: 'width-10'
+        className: "width-10"
       },
       {
-        title: 'Pays',
-        dataIndex: 'country',
-        key: 'country',
-        ...this.getColumnSearchProps('country'),
+        title: "Pays",
+        dataIndex: "country",
+        key: "country",
+        ...this.getColumnSearchProps("country"),
         editable: true,
-        className: 'width-10'
+        className: "width-10"
       },
       {
-        title: 'Thématique',
-        dataIndex: 'thematic',
-        key: 'thematic',
-        ...this.getColumnSearchProps('thematic'),
+        title: "Thématique",
+        dataIndex: "thematic",
+        key: "thematic",
+        ...this.getColumnSearchProps("thematic"),
         editable: true,
-        className: 'width-10'
+        className: "width-10"
       },
       {
-        title: 'Email visible',
-        dataIndex: 'validEmail',
-        key: 'validEmail',
-        ...this.getColumnSearchProps('validEmail'),
+        title: "Email visible",
+        dataIndex: "validEmail",
+        key: "validEmail",
+        ...this.getColumnSearchProps("validEmail"),
         editable: true
       },
       {
-        title: 'Description',
-        dataIndex: 'description',
-        key: 'description',
-        className: 'widh-textarea',
-        ...this.getColumnSearchProps('description'),
+        title: "Description",
+        dataIndex: "description",
+        key: "description",
+        className: "widh-textarea",
+        ...this.getColumnSearchProps("description"),
         editable: true
       },
       {
-        title: 'Documents à télecharger',
-        dataIndex: 'document',
-        key: 'document'
+        title: "Documents à télecharger",
+        dataIndex: "document",
+        key: "document"
       },
       {
-        title: 'Ajouter un document ',
-        dataIndex: 'uploadDocument',
+        title: "Ajouter un document ",
+        dataIndex: "uploadDocument",
         editable: true,
         render: (text, record) => {
           const { editingKey } = this.state;
@@ -339,8 +359,8 @@ class App extends React.Component {
         }
       },
       {
-        title: 'Opération',
-        dataIndex: 'operation',
+        title: "Opération",
+        dataIndex: "operation",
         render: (text, record) => {
           const { editingKey } = this.state;
           const editable = this.isEditing(record);
@@ -367,7 +387,7 @@ class App extends React.Component {
             </span>
           ) : (
             <a
-              disabled={editingKey !== ''}
+              disabled={editingKey !== ""}
               onClick={() => {
                 this.edit(record.key);
               }}
@@ -390,17 +410,19 @@ class App extends React.Component {
           fileState: this.fileState,
           stateValidEmail: this.stateValidEmail,
           inputType:
-            col.dataIndex === 'age'
-              ? 'number'
-              : col.dataIndex === 'validEmail'
-              ? 'select'
-              : col.dataIndex === 'description'
-              ? 'textarea'
-              : col.dataIndex === 'uploadDocument'
-              ? 'upload'
-              : col.dataIndex === 'thematic'
-              ? 'thematic'
-              : 'text',
+            col.dataIndex === "age"
+              ? "number"
+              : col.dataIndex === "validEmail"
+              ? "select"
+              : col.dataIndex === "description"
+              ? "textarea"
+              : col.dataIndex === "uploadDocument"
+              ? "upload"
+              : col.dataIndex === "thematic"
+              ? "thematic"
+              : col.dataIndex === "country"
+              ? "country"
+              : "text",
           dataIndex: col.dataIndex,
           title: col.title,
           editing: this.isEditing(record)
@@ -413,7 +435,7 @@ class App extends React.Component {
         key: this.props.projectsListe[i]._id,
         organizer: this.props.projectsListe[i].organizer
           ? this.props.projectsListe[i].organizer
-          : ' ',
+          : " ",
         document: this.props.projectsListe[i].document ? (
           <a
             href={`http://localhost:5000/${
@@ -421,35 +443,35 @@ class App extends React.Component {
             }`}
             target="_blank"
           >
-            {' '}
-            Lien{' '}
+            {" "}
+            Lien{" "}
           </a>
         ) : (
           // <span>
           //   {" "}
           //   {`http://localhost:5000/${this.props.projectsListe[i].document}`}
           // </span>
-          ' '
+          " "
         ),
         title: this.props.projectsListe[i].title
           ? this.props.projectsListe[i].title
-          : ' ',
+          : " ",
         email: this.props.projectsListe[i].email
           ? this.props.projectsListe[i].email
-          : ' ',
+          : " ",
         country: this.props.projectsListe[i].country
           ? this.props.projectsListe[i].country
-          : '',
+          : "",
         thematic: this.props.projectsListe[i].thematic
           ? this.props.projectsListe[i].thematic
-          : ' ',
+          : " ",
         validEmail: this.props.projectsListe[i].validEmail,
         description: this.props.projectsListe[i].description
           ? this.props.projectsListe[i].description
-          : ' '
+          : " "
       });
     }
-    console.log(data, 'data');
+    console.log(data, "data");
     const { loading, selectedRowKeys } = this.state;
     const rowSelection = {
       selectedRowKeys,
@@ -466,7 +488,7 @@ class App extends React.Component {
           <span style={{ marginLeft: 8 }}>
             {hasSelected ? (
               <span className="delte-selected-projects">
-                {' '}
+                {" "}
                 <span>{`${selectedRowKeys.length} sélectionner `}</span>
                 <Icon
                   type="delete"
@@ -480,7 +502,7 @@ class App extends React.Component {
                 />
               </span>
             ) : (
-              ''
+              ""
             )}
           </span>
           <div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import ReactDOM from "react-dom";
 import "antd/dist/antd.css";
 // import "./inputFile.sass";
@@ -180,7 +180,10 @@ class DrawerForm extends React.Component {
                         name="country"
                       >
                         {countryList.map(el => (
-                          <option value={el}> {el}</option>
+                          <Fragment>
+                            <option> </option>
+                            <option value={el}> {el}</option>
+                          </Fragment>
                         ))}
                       </select>
                       <div style={{ color: "red" }}>
@@ -263,8 +266,6 @@ export default connect(
   mapStateToProps,
   { addPerson }
 )(AddProfil);
-
-
 
 // import React from "react";
 // import ReactDOM from "react-dom";

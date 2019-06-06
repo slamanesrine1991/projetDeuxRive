@@ -1,11 +1,11 @@
-import React from 'react';
-import { Layout, Menu, Breadcrumb, Icon } from 'antd';
-import { Link, Route, Switch } from 'react-router-dom';
-import ProjectsTable from './project-table';
-import CentTable from './cents-table';
-import ContactAdmin from './contactAdmin';
-import { logoutUser } from '../actions/authActions';
-import { connect } from 'react-redux';
+import React from "react";
+import { Layout, Menu, Breadcrumb, Icon } from "antd";
+import { Link, Route, Switch } from "react-router-dom";
+import ProjectsTable from "./project-table";
+import CentTable from "./cents-table";
+import ContactAdmin from "./contactAdmin";
+import { logoutUser } from "../actions/authActions";
+import { connect } from "react-redux";
 
 const { Header, Content, Footer, Sider } = Layout;
 class Dashboard extends React.Component {
@@ -20,7 +20,7 @@ class Dashboard extends React.Component {
 
   render() {
     return (
-      <Layout style={{ minHeight: '100vh' }}>
+      <Layout style={{ minHeight: "100vh" }}>
         <Sider
           collapsible
           collapsed={this.state.collapsed}
@@ -32,7 +32,7 @@ class Dashboard extends React.Component {
           {/* theme="dark" */}
           <Menu
             theme="dark"
-            defaultSelectedKeys={['0']}
+            defaultSelectedKeys={["0"]}
             mode="inline"
             className="add-style-menu"
           >
@@ -69,18 +69,18 @@ class Dashboard extends React.Component {
           </Menu>
         </Sider>
         <Layout>
-          <Header style={{ background: '#fff', padding: 0, paddingLeft: 20 }}>
+          <Header style={{ background: "#fff", padding: 0, paddingLeft: 20 }}>
             CDC- Admin
           </Header>
-          <Content style={{ margin: '0 16px' }}>
-            <Breadcrumb style={{ margin: '16px 0' }}>
+          <Content style={{ margin: "0 16px" }}>
+            <Breadcrumb style={{ margin: "16px 0" }}>
               <Breadcrumb.Item>Admin</Breadcrumb.Item>
               <Breadcrumb.Item>Walid</Breadcrumb.Item>
             </Breadcrumb>
             <div
               style={{
                 padding: 24,
-                background: '#fff',
+                background: "#fff",
                 minHeight: 360
               }}
             >
@@ -101,9 +101,6 @@ class Dashboard extends React.Component {
               />
             </div>
           </Content>
-          <Footer style={{ textAlign: 'center' }}>
-            Ant Design ©2018 Created by Ant UED
-          </Footer>
         </Layout>
       </Layout>
     );

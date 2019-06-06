@@ -337,7 +337,7 @@ class DrawerForm extends React.Component {
               Annuler
             </Button>
             <Button onClick={this.onSubmit} type="primary">
-            Soumettre
+              Soumettre
             </Button>
           </div>
         </Drawer>

@@ -19,6 +19,7 @@
   height: 100%;
   line-height: 60px;
 }
+.nav-bar ul li a {letter-spacing: 1px}
 .nav-bar li:hover {
   color: #15bef1;
   border-bottom: 2px solid #15bef1;
